@@ -242,6 +242,10 @@ function Sigma(root, id) {
    */
   function initDOM(id, type) {
     self.domElements[id] = document.createElement(type);
+     if (type == 'canvas' && !self.domElements[id].getContext && typeof(G_vmlCanvasManager) != undefined /*excanvas*/) {
+                G_vmlCanvasManager.initElement(self.domElements[id]);
+
+    }
     self.domElements[id].style.position = 'absolute';
     self.domElements[id].setAttribute('id', 'sigma_' + id + '_' + self.id);
     self.domElements[id].setAttribute('class', 'sigma_' + id + '_' + type);
