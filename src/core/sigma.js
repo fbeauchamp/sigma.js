@@ -479,8 +479,10 @@ function Sigma(root, id) {
   this.drawActive = drawActive;
   this.clearSchedule = clearSchedule;
 
+if(window.addEventListener){
   window.addEventListener('resize', function() {
     self.resize();
   });
+}
 }
 
