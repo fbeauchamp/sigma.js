@@ -410,7 +410,27 @@ function Plotter(nodesCtx, edgesCtx, labelsCtx, hoverCtx, graph, w, h) {
       ctx.shadowBlur = 4;
       ctx.shadowColor = self.p.labelHoverShadowColor;
     }
+    
+    if (node['label'].displayX + width > ctx.canvas.width - 50) {
+        x = Math.round(node['label'].displayX.displayX - width + fontSize / 2 + 2);
+        sigma.tools.drawRoundRect(ctx,
+            x,
+            Math.round(node['label'].displayY - fontSize / 2 - 2),
+            width,
+            Math.round(fontSize + 4),
+            Math.round(fontSize / 2 + 2), "right");
 
+    } else {
+        x = Math.round(node['label'].displayX +fontSize / 2 - 2);
+        sigma.tools.drawRoundRect(ctx,
+            x-fontSize,
+            Math.round(node['label'].displayY - fontSize / 2 - 2),
+            width,
+            Math.round(fontSize+ 4),
+            Math.round(fontSize / 2 + 2), "left");
+
+
+    } /*
     sigma.tools.drawRoundRect(
       ctx,
       Math.round(node['displayX'] - fontSize / 2 - 2),
@@ -421,7 +441,7 @@ function Plotter(nodesCtx, edgesCtx, labelsCtx, hoverCtx, graph, w, h) {
       Math.round(fontSize + 4),
       Math.round(fontSize / 2 + 2),
       'left'
-    );
+    );*/
     ctx.closePath();
     ctx.fill();
 
@@ -504,18 +524,28 @@ function Plotter(nodesCtx, edgesCtx, labelsCtx, hoverCtx, graph, w, h) {
       ctx.shadowBlur = 4;
       ctx.shadowColor = self.p.labelActiveShadowColor;
     }
+    var width = Math.round(ctx.measureText(node['label']).width + 1.5 *node['displaySize']  + fontSize / 2 + 4)
+    var x = 0;
+    if (node['label'].displayX + width > ctx.canvas.width - 50) {
+        x = Math.round(node['label'].displayX.displayX - width + fontSize / 2 + 2);
+        sigma.tools.drawRoundRect(ctx,
+            x,
+            Math.round(node['label'].displayY - fontSize / 2 - 2),
+            width,
+            Math.round(fontSize + 4),
+            Math.round(fontSize / 2 + 2), "right");
 
-    sigma.tools.drawRoundRect(
-      ctx,
-      Math.round(node['displayX'] - fontSize / 2 - 2),
-      Math.round(node['displayY'] - fontSize / 2 - 2),
-      Math.round(ctx.measureText(node['label']).width +
-        node['displaySize'] * 1.5 +
-        fontSize / 2 + 4),
-      Math.round(fontSize + 4),
-      Math.round(fontSize / 2 + 2),
-      'left'
-    );
+    } else {
+        x = Math.round(node['label'].displayX +fontSize / 2 - 2);
+        sigma.tools.drawRoundRect(ctx,
+            x-fontSize,
+            Math.round(node['label'].displayY - fontSize / 2 - 2),
+            width,
+            Math.round(fontSize+ 4),
+            Math.round(fontSize / 2 + 2), "left");
+
+
+    } 
     ctx.closePath();
     ctx.fill();
 
@@ -556,11 +586,19 @@ function Plotter(nodesCtx, edgesCtx, labelsCtx, hoverCtx, graph, w, h) {
     ctx.fillStyle = self.p.labelActiveColor == 'node' ?
                     (node['color'] || self.p.defaultNodeColor) :
                     self.p.defaultLabelActiveColor;
-    ctx.fillText(
+    
+    ctx.fillText(node['label'], x, Math.round(node['displayY'] + fontSize / 2 - 3));
+     ctx.fillText(
       node['label'],
       Math.round(node['displayX'] + node['displaySize'] * 1.5),
       Math.round(node['displayY'] + fontSize / 2 - 3)
     );
+    /*
+    ctx.fillText(
+      node['label'],
+      Math.round(node['displayX'] + node['displaySize'] * 1.5),
+      Math.round(node['displayY'] + fontSize / 2 - 3)
+    );*/
 
     return self;
   };
