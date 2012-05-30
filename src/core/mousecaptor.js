@@ -398,12 +398,13 @@ function MouseCaptor(dom) {
   };
 
   // ADD CALLBACKS
+  if(dom.addEventListener){
   dom.addEventListener('DOMMouseScroll', wheelHandler, true);
   dom.addEventListener('mousewheel', wheelHandler, true);
   dom.addEventListener('mousemove', moveHandler, true);
   dom.addEventListener('mousedown', downHandler, true);
   document.addEventListener('mouseup', upHandler, true);
-
+}
   this.checkBorders = checkBorders;
   this.interpolate = startInterpolate;
 }
